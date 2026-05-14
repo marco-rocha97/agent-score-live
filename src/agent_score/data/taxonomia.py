@@ -5,7 +5,7 @@ from typing import Final
 
 # Janela temporal fixa (determinismo do fixture)
 JANELA_INICIO: Final[date] = date(2026, 4, 30)  # Dia 1
-JANELA_FIM: Final[date] = date(2026, 5, 13)    # Dia 14
+JANELA_FIM: Final[date] = date(2026, 5, 13)  # Dia 14
 DIAS_TOTAIS: Final[int] = (JANELA_FIM - JANELA_INICIO).days + 1
 
 # Dias 1-7 = baseline saudável; dias 8-14 = janela degradada

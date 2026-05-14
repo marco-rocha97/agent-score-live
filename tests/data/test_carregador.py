@@ -118,15 +118,18 @@ def test_erro_modelo_invalido(temp_db: sqlite3.Connection) -> None:
     f = tempfile.NamedTemporaryFile(mode="w", delete=False, suffix=".jsonl", encoding="utf-8")
     # Conversa sem turnos (invalida)
     f.write(
-        json.dumps({
-            "id": "conv-0001",
-            "tipo_agente": "suporte",
-            "canal": "voz",
-            "intencao": "duvida_produto",
-            "segmento_cliente": "individual",
-            "iniciada_em": "2026-05-01T10:00:00+00:00",
-            "turnos": [],  # Vazio! Inválido
-        }) + "\n"
+        json.dumps(
+            {
+                "id": "conv-0001",
+                "tipo_agente": "suporte",
+                "canal": "voz",
+                "intencao": "duvida_produto",
+                "segmento_cliente": "individual",
+                "iniciada_em": "2026-05-01T10:00:00+00:00",
+                "turnos": [],  # Vazio! Inválido
+            }
+        )
+        + "\n"
     )
     f.close()
 

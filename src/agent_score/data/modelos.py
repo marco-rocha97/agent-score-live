@@ -74,9 +74,7 @@ class Turno(BaseModel):
 
         # Padrão de CPF não-mascarado: \d{3}\.\d{3}\.\d{3}-\d{2}
         if re.search(r"\d{3}\.\d{3}\.\d{3}-\d{2}", v):
-            raise ValueError(
-                "texto contém CPF não-mascarado (deve estar em formato mascarado)"
-            )
+            raise ValueError("texto contém CPF não-mascarado (deve estar em formato mascarado)")
         return v
 
 
@@ -120,11 +118,15 @@ class Conversa(BaseModel):
 
         for i, turno in enumerate(self.turnos):
             if turno.indice != i:
-                raise ValueError(f"turnos devem ser sequenciais; turno {i} tem indice {turno.indice}")
+                raise ValueError(
+                    f"turnos devem ser sequenciais; turno {i} tem indice {turno.indice}"
+                )
 
         for i in range(1, len(self.turnos)):
             if self.turnos[i].autor == self.turnos[i - 1].autor:
-                raise ValueError(f"turnos devem alternar autor; turnos {i-1} e {i} têm mesmo autor")
+                raise ValueError(
+                    f"turnos devem alternar autor; turnos {i - 1} e {i} têm mesmo autor"
+                )
 
         return self
 

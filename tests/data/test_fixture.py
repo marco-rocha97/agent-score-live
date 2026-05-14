@@ -77,9 +77,9 @@ def test_fixture_segmento_heroi_tem_suficientes(conversas_fixture: list[Conversa
         and c.iniciada_em.date() >= DATA_INICIO_DEGRADADA
     ]
 
-    assert (
-        len(conversas_heroi_degradadas) >= CONVERSAS_HEROI_DEGRADADAS - 5
-    ), f"Segmento herói degradado: {len(conversas_heroi_degradadas)} (esperado ≥{CONVERSAS_HEROI_DEGRADADAS})"
+    assert len(conversas_heroi_degradadas) >= CONVERSAS_HEROI_DEGRADADAS - 5, (
+        f"Segmento herói degradado: {len(conversas_heroi_degradadas)} (esperado ≥{CONVERSAS_HEROI_DEGRADADAS})"
+    )
 
 
 def test_fixture_segmento_fino_existe(conversas_fixture: list[Conversa]) -> None:
@@ -95,9 +95,9 @@ def test_fixture_segmento_fino_existe(conversas_fixture: list[Conversa]) -> None
         and c.iniciada_em.date() >= DATA_INICIO_DEGRADADA
     ]
 
-    assert (
-        len(conversas_fino_degradadas) < 20
-    ), f"Segmento fino muito grande: {len(conversas_fino_degradadas)}"
+    assert len(conversas_fino_degradadas) < 20, (
+        f"Segmento fino muito grande: {len(conversas_fino_degradadas)}"
+    )
 
 
 def test_fixture_sem_cpf_nao_mascarado(conversas_fixture: list[Conversa]) -> None:
@@ -107,9 +107,7 @@ def test_fixture_sem_cpf_nao_mascarado(conversas_fixture: list[Conversa]) -> Non
     for conversa in conversas_fixture:
         for turno in conversa.turnos:
             if re.search(padrao_cpf_nao_mascarado, turno.texto):
-                pytest.fail(
-                    f"CPF não-mascarado encontrado em {conversa.id}, turno {turno.indice}"
-                )
+                pytest.fail(f"CPF não-mascarado encontrado em {conversa.id}, turno {turno.indice}")
 
 
 def test_fixture_ids_unicos(conversas_fixture: list[Conversa]) -> None:
@@ -135,16 +133,18 @@ def test_fixture_turnos_ordenados(conversas_fixture: list[Conversa]) -> None:
 def test_fixture_comeca_com_cliente(conversas_fixture: list[Conversa]) -> None:
     """Testa que toda conversa começa com turno do cliente."""
     for conversa in conversas_fixture:
-        assert conversa.turnos[0].autor == "cliente", f"Conversa {conversa.id} não começa com cliente"
+        assert conversa.turnos[0].autor == "cliente", (
+            f"Conversa {conversa.id} não começa com cliente"
+        )
 
 
 def test_fixture_alternancia_autor(conversas_fixture: list[Conversa]) -> None:
     """Testa que os autores alternam em toda conversa."""
     for conversa in conversas_fixture:
         for i in range(1, len(conversa.turnos)):
-            assert (
-                conversa.turnos[i].autor != conversa.turnos[i - 1].autor
-            ), f"Autores não alternam em {conversa.id}, turnos {i-1}/{i}"
+            assert conversa.turnos[i].autor != conversa.turnos[i - 1].autor, (
+                f"Autores não alternam em {conversa.id}, turnos {i - 1}/{i}"
+            )
 
 
 def test_fixture_intencoes_coerentes(conversas_fixture: list[Conversa]) -> None:
@@ -171,17 +171,17 @@ def test_fixture_intencoes_coerentes(conversas_fixture: list[Conversa]) -> None:
     }
 
     for conversa in conversas_fixture:
-        assert (
-            conversa.intencao in intencoes_validas[conversa.tipo_agente]
-        ), f"Intenção {conversa.intencao} inválida para agente {conversa.tipo_agente}"
+        assert conversa.intencao in intencoes_validas[conversa.tipo_agente], (
+            f"Intenção {conversa.intencao} inválida para agente {conversa.tipo_agente}"
+        )
 
 
 def test_fixture_iniciada_em_timezone_aware(conversas_fixture: list[Conversa]) -> None:
     """Testa que todas as conversas têm iniciada_em timezone-aware."""
     for conversa in conversas_fixture:
-        assert (
-            conversa.iniciada_em.tzinfo is not None
-        ), f"Conversa {conversa.id} tem iniciada_em naive"
-        assert (
-            conversa.iniciada_em.tzinfo.utcoffset(None) is not None
-        ), f"Conversa {conversa.id} não é UTC"
+        assert conversa.iniciada_em.tzinfo is not None, (
+            f"Conversa {conversa.id} tem iniciada_em naive"
+        )
+        assert conversa.iniciada_em.tzinfo.utcoffset(None) is not None, (
+            f"Conversa {conversa.id} não é UTC"
+        )

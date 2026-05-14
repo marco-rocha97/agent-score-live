@@ -151,7 +151,7 @@ async def _gerar_lote_conversas() -> list[Conversa]:
     for idx, (tipo_agente, canal, intencao, segmento_cliente, degradada) in enumerate(
         conversas_a_gerar
     ):
-        id_conversa = f"conv-{idx+1:04d}"
+        id_conversa = f"conv-{idx + 1:04d}"
 
         # Atribuir dia e horário dentro da janela
         if degradada:
@@ -171,11 +171,14 @@ async def _gerar_lote_conversas() -> list[Conversa]:
 
         # Gerar conversa
         try:
-            roteiro = await _gerar_conversa(tipo_agente, canal, intencao, segmento_cliente, degradada)
+            roteiro = await _gerar_conversa(
+                tipo_agente, canal, intencao, segmento_cliente, degradada
+            )
         except Exception as e:  # noqa: F841
             print(f"Erro ao gerar conversa {id_conversa}: {e}")
             # Fallback: criar uma conversa mínima válida
             from agent_score.data.modelos import Turno
+
             roteiro = RoteiroConversa(
                 turnos=[
                     Turno(indice=0, autor="cliente", texto=f"Preciso de {intencao}"),
