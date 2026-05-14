@@ -3,13 +3,13 @@
 import json
 import sqlite3
 import tempfile
+from datetime import datetime, timezone
 from pathlib import Path
 
 import pytest
 
 from agent_score.data.carregador import carregar_jsonl, criar_schema
 from agent_score.data.modelos import Conversa, Turno
-from datetime import datetime, timezone
 
 
 @pytest.fixture

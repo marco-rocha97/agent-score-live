@@ -2,14 +2,12 @@
 
 import json
 import re
-from datetime import date, datetime, timezone
 from pathlib import Path
 
 import pytest
 
 from agent_score.data.modelos import Conversa
 from agent_score.data.taxonomia import (
-    CONVERSAS_FINO_DEGRADADAS,
     CONVERSAS_HEROI_DEGRADADAS,
     DATA_INICIO_DEGRADADA,
     JANELA_FIM,
@@ -151,7 +149,7 @@ def test_fixture_alternancia_autor(conversas_fixture: list[Conversa]) -> None:
 
 def test_fixture_intencoes_coerentes(conversas_fixture: list[Conversa]) -> None:
     """Testa que intencoes são coerentes com tipo_agente."""
-    INTENCOES_VALIDAS = {
+    intencoes_validas = {
         "suporte": {
             "duvida_produto",
             "problema_tecnico",
@@ -174,7 +172,7 @@ def test_fixture_intencoes_coerentes(conversas_fixture: list[Conversa]) -> None:
 
     for conversa in conversas_fixture:
         assert (
-            conversa.intencao in INTENCOES_VALIDAS[conversa.tipo_agente]
+            conversa.intencao in intencoes_validas[conversa.tipo_agente]
         ), f"Intenção {conversa.intencao} inválida para agente {conversa.tipo_agente}"
 
 

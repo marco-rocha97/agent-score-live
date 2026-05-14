@@ -4,7 +4,7 @@ from datetime import datetime, timezone
 
 import pytest
 
-from agent_score.data.modelos import Autor, Canal, Conversa, SegmentoCliente, Turno, TipoAgente
+from agent_score.data.modelos import Conversa, Turno
 
 
 class TestTurno:

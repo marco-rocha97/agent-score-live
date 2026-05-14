@@ -2,8 +2,6 @@
 
 from datetime import datetime, timezone
 
-from pydantic_ai.models.test import TestModel
-
 from agent_score.data.modelos import Conversa, RoteiroConversa
 from agent_score.data.taxonomia import INTENCOES
 
